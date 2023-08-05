@@ -21,6 +21,9 @@ func routes() {
 	{
 		tasks.POST("", handlers.Repo.CreateTask)
 		tasks.PUT("/:id", handlers.Repo.UpdateTask)
+		tasks.DELETE("/:id", handlers.Repo.DeleteTask)
+		tasks.PUT("/:id/done", handlers.Repo.Done)
+		tasks.GET("", handlers.Repo.GetTasks)
 	}
 
 	_ = router.Run(portNumber)

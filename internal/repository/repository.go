@@ -5,6 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+//go:generate mockgen -source=repository.go -destination=mocks/mock.go
 type DatabaseRepo interface {
 	CreateTask(task models.Task) error
 	UpdateTask(updatedTask models.Task) error

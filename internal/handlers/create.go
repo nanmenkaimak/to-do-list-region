@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/nanmenkaimak/to-do-list-region/internal/models"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 	"time"
 )
@@ -27,8 +26,6 @@ func (m *Repository) CreateTask(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	newTask.ID = primitive.NewObjectID()
 
 	err = m.DB.CreateTask(newTask)
 	if err != nil {

@@ -5,12 +5,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type postgresDBRepo struct {
+type mongoDBRepo struct {
 	DB *mongo.Collection
 }
 
 func NewPostgresRepo(conn *mongo.Collection) repository.DatabaseRepo {
-	return &postgresDBRepo{
+	return &mongoDBRepo{
 		DB: conn,
 	}
 }

@@ -11,7 +11,8 @@ import (
 	"time"
 )
 
-func (m *postgresDBRepo) CreateTask(task models.Task) error {
+func (m *mongoDBRepo) CreateTask(task models.Task) error {
+	task.ID = primitive.NewObjectID()
 	var similarTasks models.Task
 	filter := bson.D{{"title", task.Title}, {"activeAt", task.ActiveAt}}
 	err := m.DB.FindOne(context.TODO(), filter).Decode(&similarTasks)
@@ -26,7 +27,7 @@ func (m *postgresDBRepo) CreateTask(task models.Task) error {
 	return err
 }
 
-func (m *postgresDBRepo) UpdateTask(updatedTask models.Task) error {
+func (m *mongoDBRepo) UpdateTask(updatedTask models.Task) error {
 	var similarTasks models.Task
 	filter := bson.D{{"_id", updatedTask.ID}}
 	findOneFilter := bson.D{{"title", updatedTask.Title}, {"activeAt", updatedTask.ActiveAt}}
@@ -46,20 +47,28 @@ func (m *postgresDBRepo) UpdateTask(updatedTask models.Task) error {
 	return err
 }
 
-func (m *postgresDBRepo) DeleteTask(id primitive.ObjectID) error {
+func (m *mongoDBRepo) DeleteTask(id primitive.ObjectID) error {
 	_, err := m.DB.DeleteOne(context.TODO(), bson.M{"_id": id})
 	return err
 }
 
-func (m *postgresDBRepo) UpdateStatus(id primitive.ObjectID) error {
+func (m *mongoDBRepo) UpdateStatus(id primitive.ObjectID) error {
 	filter := bson.D{{"_id", id}}
 	update := bson.D{{"$set", bson.M{"isDone": true}}}
+
+	res := m.DB.FindOne(context.TODO(), filter)
+	if res.Err() != nil {
+		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
+			return mongo.ErrNoDocuments
+		}
+		return res.Err()
+	}
 
 	_, err := m.DB.UpdateOne(context.TODO(), filter, update)
 	return err
 }
 
-func (m *postgresDBRepo) GetAllTask(status bool) ([]models.Task, error) {
+func (m *mongoDBRepo) GetAllTask(status bool) ([]models.Task, error) {
 	var allTasks []models.Task
 	filter := bson.D{{"isDone", status},
 		{"activeAt", bson.M{"$gte": time.Now().Format("2006-01-02")}}}

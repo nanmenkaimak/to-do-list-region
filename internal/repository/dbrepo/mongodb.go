@@ -48,6 +48,15 @@ func (m *mongoDBRepo) UpdateTask(updatedTask models.Task) error {
 }
 
 func (m *mongoDBRepo) DeleteTask(id primitive.ObjectID) error {
+	filter := bson.D{{"_id", id}}
+	res := m.DB.FindOne(context.TODO(), filter)
+	if res.Err() != nil {
+		if errors.Is(res.Err(), mongo.ErrNoDocuments) {
+			return mongo.ErrNoDocuments
+		}
+		return res.Err()
+	}
+
 	_, err := m.DB.DeleteOne(context.TODO(), bson.M{"_id": id})
 	return err
 }

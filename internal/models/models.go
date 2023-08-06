@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Task структура таблицы
 type Task struct {
 	ID        primitive.ObjectID `json:"-" bson:"_id, omitempty"`
 	Title     string             `json:"title" bson:"title"`

@@ -11,6 +11,7 @@ const portNumber = ":8080"
 func routes() {
 	router := gin.Default()
 
+	// возвращает 404 статус код
 	router.NoRoute(func(ctx *gin.Context) {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"message": "Page not found",

@@ -63,19 +63,19 @@ func (mr *MockDatabaseRepoMockRecorder) DeleteTask(id interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTask", reflect.TypeOf((*MockDatabaseRepo)(nil).DeleteTask), id)
 }
 
-// GetAllTask mocks base method.
-func (m *MockDatabaseRepo) GetAllTask(status bool) ([]models.Task, error) {
+// GetAllTasks mocks base method.
+func (m *MockDatabaseRepo) GetAllTasks(status bool) ([]models.Task, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAllTask", status)
+	ret := m.ctrl.Call(m, "GetAllTasks", status)
 	ret0, _ := ret[0].([]models.Task)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetAllTask indicates an expected call of GetAllTask.
-func (mr *MockDatabaseRepoMockRecorder) GetAllTask(status interface{}) *gomock.Call {
+// GetAllTasks indicates an expected call of GetAllTasks.
+func (mr *MockDatabaseRepoMockRecorder) GetAllTasks(status interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllTask", reflect.TypeOf((*MockDatabaseRepo)(nil).GetAllTask), status)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllTasks", reflect.TypeOf((*MockDatabaseRepo)(nil).GetAllTasks), status)
 }
 
 // UpdateStatus mocks base method.

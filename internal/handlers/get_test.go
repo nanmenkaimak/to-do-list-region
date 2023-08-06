@@ -29,7 +29,7 @@ func TestGetTasks(t *testing.T) {
 			inputUser: "active",
 			status:    false,
 			mockBehavior: func(s *mock_repository.MockDatabaseRepo, status bool) {
-				s.EXPECT().GetAllTask(status).Return([]models.Task{
+				s.EXPECT().GetAllTasks(status).Return([]models.Task{
 					{
 						Title:    "something",
 						ActiveAt: "2023-08-06",
@@ -44,7 +44,7 @@ func TestGetTasks(t *testing.T) {
 			inputUser: "active",
 			status:    false,
 			mockBehavior: func(s *mock_repository.MockDatabaseRepo, status bool) {
-				s.EXPECT().GetAllTask(status).Return(nil, nil)
+				s.EXPECT().GetAllTasks(status).Return(nil, nil)
 			},
 			expectedStatusCode: http.StatusOK,
 			expectedStatusBody: `[]`,
@@ -53,7 +53,7 @@ func TestGetTasks(t *testing.T) {
 			name:   "some error",
 			status: false,
 			mockBehavior: func(s *mock_repository.MockDatabaseRepo, status bool) {
-				s.EXPECT().GetAllTask(status).Return(nil, errors.New("some error"))
+				s.EXPECT().GetAllTasks(status).Return(nil, errors.New("some error"))
 			},
 			expectedStatusCode: http.StatusBadRequest,
 			expectedStatusBody: `{"error":"some error"}`,
@@ -63,7 +63,7 @@ func TestGetTasks(t *testing.T) {
 			inputUser: "done",
 			status:    true,
 			mockBehavior: func(s *mock_repository.MockDatabaseRepo, status bool) {
-				s.EXPECT().GetAllTask(status).Return([]models.Task{
+				s.EXPECT().GetAllTasks(status).Return([]models.Task{
 					{
 						Title:    "something",
 						ActiveAt: "not a time",

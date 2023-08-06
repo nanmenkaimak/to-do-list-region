@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+  to-do-list-region:
+    build: .
+    container_name: to-do-list-region
+    restart: always
+    depends_on:
+      - mongodb
+    ports:
+      - '8080:8080'
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017

@@ -46,10 +46,7 @@ func (m *mongoDBRepo) UpdateTask(updatedTask models.Task) error {
 	if err != nil && !errors.Is(err, mongo.ErrNoDocuments) {
 		return err
 	}
-	// проверяет что задачи под таким ID существует
-	if similarTasks.ID == primitive.NilObjectID {
-		return errors.New("there is not a single task with this id")
-	}
+	// проверяет что из таблицы что нету такого же задачи
 	if similarTasks.Title == updatedTask.Title && similarTasks.ActiveAt == updatedTask.ActiveAt {
 		return errors.New("there are already similar task")
 	}

@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+// @Summary Update Status
+// @Description помечает задачу выполненной
+// @ID update-status
+// @Param id   path string  true  "Task ID"
+// @Success 204
+// @Failure 400,404 {object} error
+// @Router /api/todo-list/tasks/{id}/done [put]
 // Done помечает задачу выполненной
 func (m *Repository) Done(ctx *gin.Context) {
 	// берет ID из URL и преобразует в primitive.ObjectID

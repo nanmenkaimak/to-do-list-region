@@ -8,6 +8,14 @@ import (
 	"time"
 )
 
+// @Summary Get All Tasks
+// @Description показывает список задач по статусу
+// @ID get-all-tasks
+// @Produce  json
+// @Param status    query     string  false  "поиск по статусу задачи"
+// @Success 200 {object} []models.Task
+// @Failure 400 {object} error
+// @Router /api/todo-list/tasks [get]
 // GetTasks показывает список задач по статусу
 func (m *Repository) GetTasks(ctx *gin.Context) {
 	// берет значение из query, если статус = done, тогда statusBool изменяется на true

@@ -8,6 +8,14 @@ import (
 	"time"
 )
 
+// @Summary Create New Task
+// @Description Создает новые задачи
+// @ID create-task
+// @Accept json
+// @Param input body models.Task true "task values"
+// @Success 204
+// @Failure 400,404 {object} error
+// @Router /api/todo-list/tasks [post]
 // CreateTask создает новые задачи
 func (m *Repository) CreateTask(ctx *gin.Context) {
 	var newTask models.Task

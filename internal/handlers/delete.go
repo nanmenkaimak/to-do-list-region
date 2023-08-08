@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+// @Summary Delete Task
+// @Description Удаляет задачу
+// @ID delete-task
+// @Param id   path string  true  "Task ID"
+// @Success 204
+// @Failure 400,404 {object} error
+// @Router /api/todo-list/tasks/{id} [delete]
 // DeleteTask удаляет задачу
 func (m *Repository) DeleteTask(ctx *gin.Context) {
 	// берет ID из URL и преобразует в primitive.ObjectID

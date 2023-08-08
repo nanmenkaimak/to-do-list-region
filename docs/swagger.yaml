@@ -1,0 +1,128 @@
+basePath: /
+definitions:
+  models.Task:
+    properties:
+      activeAt:
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: to do list for region
+  title: ToDo List Region
+  version: "1.0"
+paths:
+  /api/todo-list/tasks:
+    get:
+      description: показывает список задач по статусу
+      operationId: get-all-tasks
+      parameters:
+      - description: поиск по статусу задачи
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Task'
+            type: array
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Get All Tasks
+    post:
+      consumes:
+      - application/json
+      description: Создает новые задачи
+      operationId: create-task
+      parameters:
+      - description: task values
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+      summary: Create New Task
+  /api/todo-list/tasks/{id}:
+    delete:
+      description: Удаляет задачу
+      operationId: delete-task
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+      summary: Delete Task
+    put:
+      consumes:
+      - application/json
+      description: Обновляет уже существующий задачи
+      operationId: update-task
+      parameters:
+      - description: task values
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Task'
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+      summary: Update Task
+  /api/todo-list/tasks/{id}/done:
+    put:
+      description: помечает задачу выполненной
+      operationId: update-status
+      parameters:
+      - description: Task ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema: {}
+        "404":
+          description: Not Found
+          schema: {}
+      summary: Update Status
+swagger: "2.0"

@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nanmenkaimak/to-do-list-region/internal/handlers"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 )
 
@@ -17,6 +19,8 @@ func routes() {
 			"message": "Page not found",
 		})
 	})
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	tasks := router.Group("/api/todo-list/tasks")
 	{

@@ -7,6 +7,15 @@ import (
 	"net/http"
 )
 
+// @Summary Update Task
+// @Description Обновляет уже существующий задачи
+// @ID update-task
+// @Accept json
+// @Param input body models.Task true "task values"
+// @Param id   path string  true  "Task ID"
+// @Success 204
+// @Failure 400,404 {object} error
+// @Router /api/todo-list/tasks/{id} [put]
 // UpdateTask обновляет уже существующий задачи
 func (m *Repository) UpdateTask(ctx *gin.Context) {
 	var updatedTask models.Task

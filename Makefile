@@ -1,11 +1,10 @@
 GOCMD=go
 GOBUILD=$(GOCMD) build
+DOCKER_COMPOSE_FILE := docker-compose.yaml
 
-.PHONY: all
-all: build
+up:
+	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d
 
-build:
-	$(GOBUILD) -o main ./cmd/main
-
-run: build
-	./main
+down:
+	docker-compose -f $(DOCKER_COMPOSE_FILE) down
+.PHONY: up down

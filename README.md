@@ -10,7 +10,7 @@
 - Docker - контейнеризация
 
 ## Установка 
-- git clone https://github.com/nanmenkaimak/to-do-list-region
+- `git clone https://github.com/nanmenkaimak/to-do-list-region`
 ## Конфигурация
 1. Создайте файл `.env` на основе примера `.env.example`
 2. Внесите необходимые параметры 
